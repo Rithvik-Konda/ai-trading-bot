@@ -51,8 +51,10 @@ ROTATION_GAP    = 0.10           # Score gap required to rotate positions
 try:
     from signal_enhancer import SignalEnhancer as _SE
     _ENHANCER = _SE()
-except Exception:
+    print("  Signal enhancer loaded ✓")
+except Exception as _enh_err:
     _ENHANCER = None
+    print(f"  Signal enhancer not loaded: {_enh_err}")
 
 
 def apply_fill_cost(price: float, qty: int, side: str):
@@ -197,11 +199,13 @@ def _load_ml_models(watchlist):
     print("  ML models loaded:", end=" ")
     loaded = []
     for sym in watchlist:
-        # Priority: 15min > v2 > daily
+        # Priority for DAILY backtester: daily > v2 > 15min
+        # 15min models trained on intraday patterns — wrong timeframe for daily backtest
+        # The optimizer's 53% result used daily models
         candidates = [
-            (f"ml_model_15min_{sym}.joblib", "15min"),
-            (f"ml_model_v2_{sym}.joblib",    "v2"),
             (f"ml_model_{sym}.joblib",        "daily"),
+            (f"ml_model_v2_{sym}.joblib",    "v2"),
+            (f"ml_model_15min_{sym}.joblib", "15min"),
         ]
         for path, label in candidates:
             if Path(path).exists():
