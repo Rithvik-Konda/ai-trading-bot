@@ -42,19 +42,13 @@ COMMISSION_MAX_PCT   = 0.005   # Cap at 0.5% of trade value
 MAX_POSITIONS   = 5
 MAX_EXPOSURE    = 0.85
 STOP_LOSS_PCT   = 0.02
-BUY_THRESHOLD   = 0.35           # Raised 0.25→0.35: fewer trades, much higher quality
-MAX_HOLD_DAYS   = 5              # Optimizer: 5-day hold = 53% annual vs 2% for 1-day
-BASE_SIZE_PCT   = 0.20           # Optimizer: 20% base conviction sizing
+BUY_THRESHOLD   = 0.25           # Optimizer-proven with daily models
+MAX_HOLD_DAYS   = 5              # Optimizer: 5-day hold
+BASE_SIZE_PCT   = 0.30           # Optimizer top result: 30% base = 77% annual
 ROTATION_GAP    = 0.10           # Score gap required to rotate positions
 
-# ── Signal Enhancer (module-level so it's accessible inside simulation loop) ──
-try:
-    from signal_enhancer import SignalEnhancer as _SE
-    _ENHANCER = _SE()
-    print("  Signal enhancer loaded ✓")
-except Exception as _enh_err:
-    _ENHANCER = None
-    print(f"  Signal enhancer not loaded: {_enh_err}")
+# Signal enhancer disabled — net negative alpha in backtests
+_ENHANCER = None
 
 
 def apply_fill_cost(price: float, qty: int, side: str):
