@@ -1,0 +1,40 @@
+# API Keys & Secrets — NEVER commit these
+config.py
+*.env
+.env
+secrets.py
+
+# ML Models — large binary files, regenerate with train scripts
+*.joblib
+*.pkl
+*.h5
+
+# Cache directories
+.data_cache/
+.enrichment_cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+*.log
+trading_bot.log
+scalper.log
+
+# macOS
+.DS_Store
+
+# Python
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# Data files — too large for git
+*.csv
+*.parquet
+*.hdf5
+*.h5
+
+# Jupyter
+.ipynb_checkpoints/

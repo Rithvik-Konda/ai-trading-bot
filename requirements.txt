@@ -1,0 +1,10 @@
+numpy>=1.24.0
+pandas>=2.0.0
+requests>=2.31.0
+alpaca-trade-api>=3.0.0
+
+# Optional: FinBERT sentiment (highly recommended)
+# Adds ~400MB model download on first run, then cached
+# pip install transformers torch
+# transformers>=4.30.0
+# torch>=2.0.0
